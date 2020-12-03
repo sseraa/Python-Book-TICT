@@ -208,7 +208,155 @@ print(result)
 result = max(11,0,4,5)
 print(result)
 
-re=eval("(6/3)*7")
+re=eval("(6/3)*7")#char 수식 계산결과 반환
 print(re)
+
+result = sorted([9, 1, 8, 5, 4])
+print(result)
+
+result = sorted([9, 1, 8, 5, 4],reverse=True)
+print(result)
+
+result = sorted((9, 1, 8, 5, 4))#??
+print(result)
+
+result = sorted([('hongglidong',35),('amugei',50),('leesoonsin',75)],key = lambda x: x[1], reverse = True)
+print(result)
+
+data = [0,1,8,5,4]
+data.sort()
+print(data)
+
+#no.2 itertools ; 반복되는 데이터 처리
+#Class : permutations(순열), combinations(조합),product(중복순열),combinations_with_replacement(중복조합)
+
+from itertools import permutations
+
+data = ['A','B','C']
+result = list(permutations(data,3))
+print(result)#3개 뽑아 일렬 나열하는 모든 경우의 수
+
+from itertools import combinations
+
+data = ['A','B','C']
+result = list(combinations(data,2))
+print(result)#2개 뽑는 x순서 경우의 수
+
+from itertools import product
+
+data = ['A','B','C']
+result = list(product(data,repeat=2))
+print(result)#중복고려 2개 뽑아 나열(순서o)
+
+from itertools import combinations_with_replacement
+
+data = ['A','B','C']
+result = list(combinations_with_replacement(data,2))
+print(result)
+
+#no.3 heapq ; 우선순위큐 구현/minheap
+#minheap; 힙에 원소 전부 넣고 빼면 O(nlongn)
+#method: heapq.heappush(), heapq.heappop()
+
+import heapq
+
+#heap sort
+def heapsort(iterable):
+  h = []
+  result = []
+
+  for value in iterable:
+    heapq.heappush(h, value)
+
+  for i in range(len(h)):
+    result.append(heapq.heappop(h))
+  
+  return result
+
+result = heapsort([1,3,5,7,9,2,4,6,8,0])
+print(result)
+
+#max heapsort; 원소 부호 바꿔서 삽입, 추출 후 재변경
+
+import heapq
+
+def heapsort(iterable):
+  h = []
+  result = []
+
+  for value in iterable:
+    heapq.heappush(h, -value)#-삽입
+
+  for i in range(len(h)):
+    result.append(-heapq.heappop(h))#+로 변경됨
+  
+  return result
+
+result = heapsort([1,3,5,7,9,2,4,6,8,0])
+print(result)
+
+#no.4 bisect ; 이진탐색
+#정렬된 배열에서 특정한 원소 탐색
+#func: bisect_left(), bisect_right() : O(logn)
+
+from bisect import bisect_left, bisect_right
+
+a = [1,2,4,4,8]
+x =4
+
+print(bisect_left(a,x))
+print(bisect_right(a,x)) #return index value
+
+#Q; 함수, 매서드, 클래스에 따라 라이브러리 삽입 방법이 다름??
+
+from bisect import bisect_left, bisect_right
+
+#return no.[left_value, right_value]
+def count_by_range(a, left_value, right_value):
+  #a에서 right_value가 들어갈 인덱스 반환(기준 right)
+  right_index = bisect_right(a, right_value)
+  left_index = bisect_left(a, left_value)
+  #return no.(left to right_index)
+  return right_index - left_index
+
+a = [1,2,3,3,3,3,4,4,8,9]
+
+print(count_by_range(a, 4,4))# 값이 4인 데이터 개수
+print(count_by_range(a, -1,3))#값이 -1~3인 데이터 개수
+
+#no.4 collections ; data_structure
+#Class : deque, count_by_range
+
+#deque ; popleft(),pop()//appendleft(),append()
+
+from collections import deque
+
+data = deque([2,3,4])
+data.appendleft(1)
+data.append(5)
+
+print(data)
+print(list(data))#trans list type
+
+#counter ; no.등장횟수
+
+from collections import Counter
+
+counter = Counter(['red','blue','red', 'green','blue','blue'])
+
+print(counter['blue'])
+print(counter['green'])
+print(dict(counter)) #trans dict dtype
+
+#no.5 math ; factorial(x), sqrt(x), 
+#gcd(a,b);최대공약수, math.pi, math.e
+
+import math
+
+print("5! = ", math.factorial(5))
+print("root 7 = ", math.sqrt(7))
+print("21과 14의 G = ", math.gcd(21,14))
+print("pie = ", math.pi)
+print("e = ", math.e)
 
     
